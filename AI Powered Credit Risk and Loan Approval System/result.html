@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow-lg p-5 text-center">
+            {% if decision == "Approved" %}
+                <h1 class="text-success"><i class="fas fa-check-circle"></i> LOAN APPROVED!</h1>
+            {% else %}
+                <h1 class="text-danger"><i class="fas fa-times-circle"></i> LOAN REJECTED</h1>
+            {% endif %}
+
+            <p class="lead mt-4">{{ explanation }}</p>
+            <h4>Risk Score: <span class="text-warning">{{ risk_prob }}%</span></h4>
+
+            {% if decision == "Approved" %}
+                <div class="mt-4 p-4 bg-light text-dark rounded">
+                    <h5>Recommended Offer</h5>
+                    <p><strong>Suggested Loan:</strong> ₹{{ suggested_loan }}</p>
+                    <p><strong>EMI (36 months):</strong> ₹{{ emi }}</p>
+                    <p><strong>Total Repayment:</strong> ₹{{ (suggested_loan + emi*36)|round }}</p>
+                </div>
+            {% endif %}
+
+            <div class="mt-5">
+                <a href="/" class="btn btn-primary btn-lg">Apply Again</a>
+                <a href="/history" class="btn btn-outline-dark btn-lg">View History</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
